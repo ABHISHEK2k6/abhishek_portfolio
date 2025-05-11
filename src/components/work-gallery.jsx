@@ -7,15 +7,15 @@ import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
 
 const workImages = [
-  { id: 1, src: "/images/mars.jpg", alt: "Project 1" },
-  { id: 2, src: "/images/room1.jpg", alt: "Project 2" },
-  { id: 3, src: "/images/room2.jpg", alt: "Project 3" },
-  { id: 4, src: "/images/room3.jpg", alt: "Project 4" },
+  { id: 1, src: "/images/Scene.jpg", alt: "Project 1" },
+  { id: 2, src: "/images/room2.jpg", alt: "Project 2" },
+  { id: 3, src: "/images/room1.jpg", alt: "Project 3" },
+  { id: 4, src: "/images/room5.jpg", alt: "Project 4" },
   { id: 5, src: "/images/room4.jpg", alt: "Project 5" },
-  { id: 6, src: "/images/room5.jpg", alt: "Project 6" },
-  { id: 7, src: "/images/car.jpg", alt: "Project 7" },
-  { id: 8, src: "/images/Scene.jpg", alt: "Project 8" },
-  { id: 9, src: "/images/robot.jpg", alt: "Project 9" },
+  { id: 6, src: "/images/room3.jpg", alt: "Project 6" },
+  { id: 7, src: "/images/mars.jpg", alt: "Project 7" },
+  { id: 8, src: "/images/robot.jpg", alt: "Project 8" },
+  { id: 9, src: "/images/car.jpg", alt: "Project 9" },
 ];
 
 const WorkGallery = () => {
@@ -49,13 +49,12 @@ const WorkGallery = () => {
         Showcase Gallery
       </motion.h2>
 
-      <div className={`flex ${isMobile ? "flex-col" : "flex-row"} gap-8 max-w-7xl mx-auto`}>
-        {/* 🖼️ Image Grid */}
-        <div className={`${isMobile ? "grid grid-cols-2" : "grid grid-cols-3"} gap-4 w-full sm:w-3/5`}>
+      <div className={`flex ${isMobile ? "flex-col-reverse" : "flex-row"} gap-6 max-w-7xl mx-auto`}>
+        <div className={`${isMobile ? "grid grid-cols-2 -mb-20" : "grid grid-cols-3"} gap-3 w-full sm:w-[150%]`}>
           {workImages.map((image, index) => (
             <motion.div
               key={image.id}
-              className="aspect-square overflow-hidden rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+              className="aspect-square overflow-hidden rounded-lg shadow-lg hover:scale-[105%] transition-transform duration-300"
               variants={slideIn(index)}
               initial="hidden"
               whileInView="visible"
@@ -66,7 +65,7 @@ const WorkGallery = () => {
           ))}
         </div>
 
-        <div className={`w-full ${isMobile ? "h-[300px]" : "w-2/5 h-[600px]"}`}>
+        <div className={`w-full ${isMobile ? "h-[300px] -my-14" : "w-2/5 h-[600px]"}`}>
           <div className="w-full h-full rounded-lg overflow-hidden">
             <ComputersCanvas />
           </div>

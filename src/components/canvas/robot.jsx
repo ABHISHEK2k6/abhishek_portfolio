@@ -18,11 +18,11 @@ const Robots = ({ isMobile }) => {
         castShadow
         shadow-mapSize={1024}
       />
-      <pointLight intensity={isMobile ? 4 : 1.5} />
+      <pointLight intensity={isMobile ? 1.8 : 10} />
       <primitive
         object={computer.scene}
-        scale={isMobile ? 0.9 : 0.8}
-        position={isMobile ? [0, -1.35, 1.2] : [0, -0.5, 1]}
+        scale={isMobile ? 0.8 : .4}
+        position={isMobile ? [0, -0.8, 1.2] : [0, -0.5, -1]}
         rotation={[-0.01, 0.4, -0.1]}
       />
     </mesh>
