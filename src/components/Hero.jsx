@@ -8,7 +8,7 @@ const Hero = () => {
     <section className={`relative w-full h-screen mx-auto`}>
       <div className="w-full h-full relative">
         <div className="absolute w-[50%] h-full right-0 z-[2] max-[420px]:w-full max-[420px]:h-[50%] bottom-32">
-          <RobotCanvas />
+          {/* <RobotCanvas /> */}
         </div>
       </div>
       <div
