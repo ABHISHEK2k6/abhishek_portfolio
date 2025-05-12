@@ -7,7 +7,7 @@ const Hero = () => {
   return (
     <section className={`relative w-full h-screen mx-auto`}>
       <div className="w-full h-full relative">
-        <div className="absolute w-[50%] h-full right-0 z-[2] max-[420px]:w-full">
+        <div className="absolute w-[50%] h-full right-0 z-[2] max-[420px]:w-full max-[420px]:h-[50%] bottom-32">
           <RobotCanvas />
         </div>
       </div>
@@ -30,7 +30,7 @@ const Hero = () => {
       </div>
 
 
-      <div className='absolute xs:bottom-10 bottom-32 w-full flex justify-center items-centerv z-[50]'>
+      <div className='absolute xs:bottom-10 bottom-32 w-full flex justify-center items-centerv z-[50] max-[420px]:bottom-20'>
         <a href='#about'>
           <div className='w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2'>
             <motion.div

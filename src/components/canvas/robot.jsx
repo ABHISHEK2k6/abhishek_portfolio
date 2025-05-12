@@ -21,8 +21,8 @@ const Robots = ({ isMobile, lightPosition, lightRotation }) => {
       <group rotation={[0, 1, 0]}>
         <primitive
           object={computer.scene}
-          scale={isMobile ? 0.5 : 0.5}
-          position={isMobile ? [0, -1.2, -0.1] : [0, -0.5, -1]}
+          scale={isMobile ? 0.9 : 0.5}
+          position={isMobile ? [0, -1.2, -0.1] : [0, -1.5, -1]}
         />
       </group>
     </mesh>
@@ -31,7 +31,7 @@ const Robots = ({ isMobile, lightPosition, lightRotation }) => {
 
 const RobotCanvas = () => {
   const [isMobile, setIsMobile] = useState(false);
-  const [lightPosition, setLightPosition] = useState(isMobile ? [-0.2, 0.5, 0] : [-0.2, 1, 1]); // Default light position
+  const [lightPosition, setLightPosition] = useState(isMobile ? [-0.2, 0.5, 0] : [-0.2, .2, 1]); // Default light position
   const [lightRotation, setLightRotation] = useState([Math.PI / 1, Math.PI / 3, 2]); // Default light rotation
 
   useEffect(() => {
