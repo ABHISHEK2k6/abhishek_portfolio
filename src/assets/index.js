@@ -19,6 +19,7 @@ import zmodeler from "./tech/zmodeler.png"
 import tailwind from "./tech/tailwind.png";
 import typescript from "./tech/typescript.png";
 import threejs from "./tech/threejs.svg";
+import mysql from "./tech/mysql.png"
 
 import mulearn from "./company/mulearn.png";
 import mediacon from "./company/Mediacon.png";
@@ -30,9 +31,13 @@ import mulearn_ucek from "./mulearn_ucek.png";
 import mediacon_news from "./mediacon_news.png";
 import college_site from "./college_site.png";
 import portfolio from "./portfolio.png";
+import blackhole from "./blackhole.webm";
+import mainicondark from "./mainicondark.svg"
 
 export {
   logo,
+  blackhole,
+  mainicondark,
   backend,
   creator,
   mobile,
@@ -47,6 +52,7 @@ export {
   javascript,
   cpp,
   python,
+  mysql,
   reactjs,
   zmodeler,
   tailwind,

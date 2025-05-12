@@ -1,55 +1,42 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
+import { OrbitControls, Preload, useGLTF, Center } from "@react-three/drei";
 
 import CanvasLoader from "../Loader";
 
-const Robots = ({ isMobile, lightPosition, lightRotation }) => {
-  const computer = useGLTF("./desktop_pc/Robot.glb");
+const Robots = ({ isMobile }) => {
+  const { scene } = useGLTF("./desktop_pc/Robot.glb");
+
+  // Return null until the scene is ready and has geometry
+  if (!scene || !scene.children.length) return null;
 
   return (
     <mesh>
-      {/* Point light with adjustable position and rotation */}
       <pointLight
-        color={"purple"}
-        intensity={isMobile ? 500 : 60}
-        position={lightPosition} // Set position from props
-        rotation={lightRotation} // Set rotation from props
+        color={"#9215e6"}
+        intensity={isMobile ? 300 : 500}
+        position={[0, 5, 0]}
       />
-      
-      {/* Group the model to center the rotation */}
-      <group rotation={[0, 1, 0]}>
-        <primitive
-          object={computer.scene}
-          scale={isMobile ? 0.9 : 0.5}
-          position={isMobile ? [0, -1.2, -0.1] : [0, -1.5, -1]}
-        />
-      </group>
+      <Center>
+        <primitive object={scene} scale={isMobile ? 0.6 : 0.6} />
+      </Center>
     </mesh>
   );
 };
 
+
 const RobotCanvas = () => {
   const [isMobile, setIsMobile] = useState(false);
-  const [lightPosition, setLightPosition] = useState(isMobile ? [-0.2, 0.5, 0] : [-0.2, .2, 1]); // Default light position
-  const [lightRotation, setLightRotation] = useState([Math.PI / 1, Math.PI / 3, 2]); // Default light rotation
 
   useEffect(() => {
-    // Add a listener for changes to the screen size
     const mediaQuery = window.matchMedia("(max-width: 500px)");
-
-    // Set the initial value of the `isMobile` state variable
     setIsMobile(mediaQuery.matches);
 
-    // Define a callback function to handle changes to the media query
     const handleMediaQueryChange = (event) => {
       setIsMobile(event.matches);
     };
 
-    // Add the callback function as a listener for changes to the media query
     mediaQuery.addEventListener("change", handleMediaQueryChange);
-
-    // Remove the listener when the component is unmounted
     return () => {
       mediaQuery.removeEventListener("change", handleMediaQueryChange);
     };
@@ -57,24 +44,19 @@ const RobotCanvas = () => {
 
   return (
     <Canvas
-      frameloop="demand"
+      frameloop="always"
       shadows
       dpr={[1, 2]}
-      camera={{ position: [20, 3, 5], fov: 25 }}
+      camera={{ position: [5, 3, 10], fov: 25 }}
       gl={{ preserveDrawingBuffer: true }}
     >
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls
           enableZoom={false}
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 2}
+          autoRotate
+          autoRotateSpeed={2}
         />
-        {/* Pass light position and rotation as props */}
-        <Robots
-          isMobile={isMobile}
-          lightPosition={lightPosition}
-          lightRotation={lightRotation}
-        />
+        <Robots isMobile={isMobile} />
       </Suspense>
 
       <Preload all />

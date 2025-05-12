@@ -75,4 +75,4 @@ const WorkGallery = () => {
   );
 };
 
-export default SectionWrapper(WorkGallery, "");
+export default SectionWrapper(WorkGallery, "gallery");

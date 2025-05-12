@@ -11,6 +11,7 @@ import {
   zmodeler,
   tailwind,
   python,
+  mysql,
   cpp,
   git,
   figma,
@@ -32,8 +33,20 @@ export const navLinks = [
     title: "About",
   },
   {
+    id: "experience",
+    title: "Experience",
+  },
+  {
+    id: "tech",
+    title: "Tech Stack",
+  },
+  {
     id: "work",
     title: "Work",
+  },
+  {
+    id: "gallery",
+    title: "Gallery",
   },
   {
     id: "contact",
@@ -113,6 +126,10 @@ const technologies = [
     name: "Zmodeler",
     icon: zmodeler,
   },
+  {
+    name: "MySQL",
+    icon: mysql,
+  }
 ];
 
 const experiences = [
@@ -212,7 +229,7 @@ const projects = [
       },
     ],
     image: youtube, // Replace with actual image import or path
-    source_code_link: "https://github.com/your-username/youtube-clone",
+    source_code_link: "https://github.com/ABHISHEK2k6/Yoututbe-Clone-UI.git",
   },
   {
     name: "MuLearn Website Update",
@@ -233,7 +250,7 @@ const projects = [
       },
     ],
     image: mulearn_ucek, // Replace with actual image import or path
-    source_code_link: "https://github.com/your-username/mulearn-update",
+    source_code_link: "https://github.com/ABHISHEK2k6/Mulearn-ucek.git",
   },
   {
     name: "MediaCon News Website",
@@ -254,7 +271,7 @@ const projects = [
       },
     ],
     image: mediacon_news, // Replace with actual image import or path
-    source_code_link: "https://github.com/your-username/mediacon-news",
+    source_code_link: "https://github.com/ABHISHEK2k6/mediacon-news-next.git",
   },
   {
     name: "College Website Enhancement",
@@ -279,7 +296,7 @@ const projects = [
       },
     ],
     image: college_site, // Replace with actual image import or path
-    source_code_link: "https://github.com/your-username/college-website",
+    source_code_link: "https://github.com/ABHISHEK2k6/ucek.git",
   },
   {
     name: "3D Portfolio Website",
@@ -308,7 +325,7 @@ const projects = [
       },
     ],
     image: portfolio, // Replace with actual image import or path
-    source_code_link: "https://github.com/your-username/3d-portfolio",
+    source_code_link: "https://github.com/ABHISHEK2k6/abhishek_portfolio.git",
   },
 ];
 
