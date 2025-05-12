@@ -1,100 +1,160 @@
-import React from "react";
-import Tilt from 'react-parallax-tilt';
-import { motion } from "framer-motion";
-
+import React, { memo, useMemo, useEffect, useState, useRef } from "react";
 import { styles } from "../styles";
 import { github } from "../assets";
 import { SectionWrapper } from "../hoc";
 import { projects } from "../constants";
-import { fadeIn, textVariant } from "../utils/motion";
 
-const ProjectCard = ({
-  index,
-  name,
-  description,
-  tags,
-  image,
-  source_code_link,
-}) => {
+// Optimized tilt component with performance controls
+const TiltCard = ({ children, className }) => {
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const animationRef = useRef();
+  const cardRef = useRef();
+
+  const handleMouseMove = (e) => {
+    cancelAnimationFrame(animationRef.current);
+    
+    animationRef.current = requestAnimationFrame(() => {
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      
+      setTilt({
+        x: y * 8, // Vertical tilt
+        y: -x * 8 // Horizontal tilt
+      });
+    });
+  };
+
+  const handleMouseLeave = () => {
+    cancelAnimationFrame(animationRef.current);
+    setTilt({ x: 0, y: 0 });
+  };
+
+  useEffect(() => {
+    return () => cancelAnimationFrame(animationRef.current);
+  }, []);
+
   return (
-    <motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)}>
-      <Tilt
-        options={{
-          max: 45,
-          scale: 1,
-          speed: 450,
-        }}
-        className='bg-tertiary p-5 rounded-2xl w-full sm:w-[360px] h-full border-gradient mx-auto'
-      >
-        <div className='relative w-full h-[180px] sm:h-[230px] cursor-pointer'
+    <div
+      ref={cardRef}
+      className={className}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale(1.02)`,
+        transition: 'transform 0.15s ease-out',
+        willChange: 'transform'
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+const ProjectCard = memo(({ index, name, description, tags, image, source_code_link }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const cardRef = useRef();
+
+  // Image loading with timeout fallback
+  useEffect(() => {
+    const img = new Image();
+    img.src = image;
+    img.onload = () => setIsLoaded(true);
+    
+    // Fallback in case onload doesn't fire
+    const timeout = setTimeout(() => setIsLoaded(true), 1000);
+    return () => clearTimeout(timeout);
+  }, [image]);
+
+  // Memoize the tags rendering
+  const renderedTags = useMemo(() => (
+    tags.map((tag) => (
+      <p key={`${name}-${tag.name}`} className={`text-[12px] sm:text-[14px] ${tag.color}`}>
+        #{tag.name}
+      </p>
+    ))
+  ), [tags, name]);
+
+  return (
+    <div 
+      ref={cardRef}
+      className="w-full sm:w-[360px] animate-fade-in"
+      style={{
+        animationDelay: `${index * 50}ms`,
+        opacity: 0 // Start invisible, animation will make it visible
+      }}
+    >
+      <TiltCard className="bg-tertiary p-5 rounded-2xl h-full border-gradient">
+        <div
+          className="relative w-full h-[180px] sm:h-[230px] cursor-pointer"
           onClick={() => window.open(source_code_link, "_blank")}
-          >
+        >
           <img
             src={image}
-            alt='project_image'
-            className={`w-full h-full rounded-2xl ${name === "MediaCon News Website" ? "object-contain" : "object-cover"}`}
+            alt="project"
+            loading="lazy"
+            decoding="async"
+            width={360}
+            height={230}
+            className={`w-full h-full rounded-2xl transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${name === "MediaCon News Website" ? "object-contain" : ""} `}
+            style={{ 
+              contentVisibility: 'auto',
+              background: isLoaded ? 'none' : 'linear-gradient(90deg, #1a1a2e 0%, #16213e 100%)'
+            }}
           />
-
-          <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
-            <div
-              className='black-gradient w-10 h-10 rounded-full flex justify-center items-center'
-            >
-              <img
-                src={github}
-                alt='source code'
-                className='w-1/2 h-1/2 object-contain'
+          <div className="absolute inset-0 flex justify-end m-3">
+            <div className="black-gradient w-10 h-10 rounded-full flex justify-center items-center">
+              <img 
+                src={github} 
+                alt="source code" 
+                className="w-1/2 h-1/2 object-contain" 
+                loading="lazy"
+                width={20}
+                height={20}
               />
             </div>
           </div>
         </div>
 
-        <div className='mt-5'>
-          <h3 className='text-white font-bold text-[20px] sm:text-[24px]'>{name}</h3>
-          <p className='mt-2 text-secondary text-[12px] sm:text-[14px]'>{description}</p>
+        <div className="mt-5">
+          <h3 className="text-white font-bold text-[20px] sm:text-[24px]">{name}</h3>
+          <p className="mt-2 text-secondary text-[12px] sm:text-[14px]">{description}</p>
         </div>
 
-        <div className='mt-4 flex flex-wrap gap-2'>
-          {tags.map((tag) => (
-            <p
-              key={`${name}-${tag.name}`}
-              className={`text-[12px] sm:text-[14px] ${tag.color}`}
-            >
-              #{tag.name}
-            </p>
-          ))}
+        <div className="mt-4 flex flex-wrap gap-2">
+          {renderedTags}
         </div>
-      </Tilt>
-    </motion.div>
+      </TiltCard>
+    </div>
   );
-};
+});
 
 const Works = () => {
-  return (
-    <>
-      <motion.div variants={textVariant()}>
-        <p className={`${styles.sectionSubText}`}>My work</p>
-        <h2 className={`${styles.sectionHeadText}`}>Projects.</h2>
-      </motion.div>
+  const containerRef = useRef();
 
-      <div className='w-full flex'>
-        <motion.p
-          variants={fadeIn("", "", 0.1, 1)}
-          className='mt-3 text-secondary text-[14px] sm:text-[17px] max-w-3xl leading-[24px] sm:leading-[30px]'
+  return (
+    <div ref={containerRef} className="relative">
+      <div className="text-center">
+        <p className={`${styles.sectionSubText} animate-fade-in`}>My work</p>
+        <h2 className={`${styles.sectionHeadText} animate-fade-in`} style={{ animationDelay: '50ms' }}>
+          Projects.
+        </h2>
+        <p 
+          className="mt-3 text-secondary text-[14px] sm:text-[16px] max-w-3xl leading-[24px] mx-auto animate-fade-in"
+          style={{ animationDelay: '100ms' }}
         >
-          Following projects showcases my skills and experience through
-          real-world examples of my work. Each project is briefly described with
-          links to code repositories and live demos in it. It reflects my
-          ability to solve complex problems, work with different technologies,
-          and manage projects effectively.
-        </motion.p>
+          Following projects showcase my skills and experience through real-world examples. 
+          Each project includes links to the code or demo and highlights my ability to 
+          solve complex problems and work with different technologies.
+        </p>
       </div>
 
-      <div className='mt-10 sm:mt-20 flex flex-wrap gap-5 justify-center'>
+      <div className="mt-10 sm:mt-20 flex flex-wrap gap-8 justify-evenly">
         {projects.map((project, index) => (
           <ProjectCard key={`project-${index}`} index={index} {...project} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

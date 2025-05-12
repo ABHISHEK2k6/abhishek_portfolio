@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { ComputersCanvas } from "../components/canvas"; // Adjust the path as needed
+import { useEffect,useRef, useState, useMemo, useCallback } from "react";
+import { ComputersCanvas } from "../components/canvas";
 import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
 
@@ -19,58 +18,105 @@ const workImages = [
 ];
 
 const WorkGallery = () => {
-  const [isMobile, setIsMobile] = useState(false);
+  const [canvasVisible, setCanvasVisible] = useState(false);
+  const [shouldRender, setShouldRender] = useState(false);
+  const containerRef = useRef();
 
+  // Intersection Observer for lazy loading
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldRender(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: "200px" }
+    );
+
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
   }, []);
 
-  const slideIn = (index) => ({
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, delay: index * 0.1, ease: "easeOut" },
-    },
-  });
+  // Only load canvas when component is visible and after a delay
+  useEffect(() => {
+    if (!shouldRender) return;
+    
+    const timeout = setTimeout(() => setCanvasVisible(true), 1000);
+    return () => clearTimeout(timeout);
+  }, [shouldRender]);
+
+  // Optimized image preloading
+  const preloadImages = useCallback(() => {
+    if (!shouldRender) return;
+    
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    workImages.forEach(({ src }) => {
+      fetch(src, { signal, priority: 'low' })
+        .catch(() => {}); // Silently handle errors
+    });
+
+    return () => controller.abort();
+  }, [shouldRender]);
+
+  useEffect(() => {
+    preloadImages();
+  }, [preloadImages]);
+
+  // Memoized image rendering with optimized loading
+  const renderedImages = useMemo(() => (
+    workImages.map((image) => (
+      <div
+        key={image.id}
+        className="aspect-square overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-out hover:scale-105 hover:brightness-110"
+      >
+        <img
+          src={image.src}
+          alt={image.alt}
+          loading="lazy"
+          decoding="async"
+          width={400}
+          height={400}
+          className="w-full h-full object-cover"
+          style={{ contentVisibility: "auto" }}
+        />
+      </div>
+    ))
+  ), []);
 
   return (
-    <section className="w-full min-h-screen bg-primary py-12 px-6">
-      <motion.h2
-        className={`${styles.sectionHeadText} text-center mb-10`}
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        viewport={{ once: true, amount: 0.5 }}
-      >
-        Showcase Gallery
-      </motion.h2>
+    <section 
+      ref={containerRef}
+      className="w-full min-h-screen bg-primary py-12 px-6"
+    >
+      {shouldRender && (
+        <>
+          <h2 className={`${styles.sectionHeadText} text-center mb-10`}>
+            Showcase Gallery
+          </h2>
 
-      <div className={`flex ${isMobile ? "flex-col-reverse" : "flex-row"} gap-6 max-w-7xl mx-auto`}>
-        <div className={`${isMobile ? "grid grid-cols-2 -mb-20" : "grid grid-cols-3"} gap-3 w-full sm:w-[150%]`}>
-          {workImages.map((image, index) => (
-            <motion.div
-              key={image.id}
-              className="aspect-square overflow-hidden rounded-lg shadow-lg hover:scale-[105%] transition-transform duration-300"
-              variants={slideIn(index)}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-            >
-              <img src={image.src} alt={image.alt} className="w-full h-full object-cover" />
-            </motion.div>
-          ))}
-        </div>
+          <div className="flex flex-col-reverse lg:flex-row gap-8 max-w-7xl mx-auto">
+            {/* Gallery Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 flex-1">
+              {renderedImages}
+            </div>
 
-        <div className={`w-full ${isMobile ? "h-[300px] -my-14" : "w-2/5 h-[600px]"}`}>
-          <div className="w-full h-full rounded-lg overflow-hidden">
-            <ComputersCanvas />
+            {/* Canvas Area - only render when visible */}
+            <div className="w-full lg:w-2/5 h-[300px] lg:h-[600px]">
+              <div className="w-full h-full rounded-lg overflow-hidden">
+                {canvasVisible && (
+                  <ComputersCanvas 
+                    scale={0.8} // Reduced scale for better performance
+                    position={[0, -1.5, 0]} // Adjusted position
+                  />
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </section>
   );
 };

@@ -29,7 +29,7 @@ const Hero = () => {
         {/* Foreground Text */}
         <div className="relative z-10 text-center">
           <h1 className="text-4xl font-bold text-white">
-            Hi, I'm <span className="text-[#915EFF]">Abhishek</span>
+            Hi, I'm <span className="text-[#9215e6]">Abhishek</span>
           </h1>
           <p className="mt-3 text-white text-lg">
             I develop 3D models,
@@ -70,7 +70,7 @@ const Hero = () => {
 
             <div>
               <h1 className={`${styles.heroHeadText} text-white`}>
-                Hi, I'm <span className="text-[#915EFF]">Abhishek</span>
+                Hi, I'm <span className="text-[#8a11b7]">Abhishek</span>
               </h1>
               <p className={`${styles.heroSubText} mt-2 text-white-100`}>
                 I develop 3D models,

@@ -13,6 +13,44 @@
   color-scheme: dark;
 }
 
+/* Add to your global CSS */
+.gallery-image {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.canvas-container {
+  transform: translateZ(0);
+  isolation: isolate;
+}
+
+/* Add to your global CSS */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.border-gradient {
+  position: relative;
+  background: linear-gradient(#1a1a2e, #16213e);
+  border-radius: 16px;
+}
+
+/* Hardware acceleration */
+.tilt-card {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+/* Hardware acceleration */
+.project-card {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
 .hash-span {
   margin-top: -100px;
   padding-bottom: 100px;
@@ -107,6 +145,22 @@
     to top,
     #2f80ed,
     #56ccf2
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.purple-text-gradient {
+  /* background: -webkit-linear-gradient(#eee, #333); */
+  background: #56ccf2; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to top,
+    #7c0ec1,
+    #0fa6d4
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to top,
+    #7214c0,
+    #d912d6
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

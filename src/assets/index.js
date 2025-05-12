@@ -32,7 +32,11 @@ import mediacon_news from "./mediacon_news.png";
 import college_site from "./college_site.png";
 import portfolio from "./portfolio.png";
 import blackhole from "./blackhole.webm";
-import mainicondark from "./mainicondark.svg"
+import mainicondark from "./mainicondark.svg";
+
+import linkedin from "./socials/linkedin.svg";
+import instagram from "./socials/instagram.svg";
+import githubsvg from "./socials/github.svg";
 
 export {
   logo,
@@ -42,6 +46,9 @@ export {
   creator,
   mobile,
   web,
+  linkedin,
+  instagram,
+  githubsvg,
   github,
   menu,
   close,

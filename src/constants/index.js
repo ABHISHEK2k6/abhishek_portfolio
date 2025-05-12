@@ -25,6 +25,9 @@ import {
   threejs,
   college_site,
   portfolio,
+  linkedin,
+  instagram,
+  githubsvg,
 } from "../assets";
 
 export const navLinks = [
@@ -292,7 +295,7 @@ const projects = [
       },
       {
         name: "markdown",
-        color: "yellow-text-gradient",
+        color: "orange-text-gradient",
       },
     ],
     image: college_site, // Replace with actual image import or path
@@ -330,4 +333,31 @@ const projects = [
 ];
 
 
-export { services, technologies, experiences, projects };
+  const Socials = [
+    {
+      name: "Linkedin",
+      src: linkedin,
+      link : "https://www.linkedin.com/in/abhishek-p-a2a89a32b/",
+    },
+    {
+      name: "Instagram",
+      src: instagram,
+      link : "https://www.instagram.com/_abhi2k6_",
+    },
+    {
+      name: "Github",
+      src: githubsvg,
+      link : "https://github.com/ABHISHEK2k6",
+    },
+  ];
+
+const Bio = {
+  name: "Abhishek P",
+  email: "abhishekp9a@gmail.com",
+  linkedin: "https://www.linkedin.com/in/abhishek-p-a2a89a32b/",
+  githubsvg: "https://github.com/ABHISHEK2k6",
+  insta: "https://www.instagram.com/_abhi2k6_",
+};
+
+
+export { services, Bio, technologies, Socials, experiences, projects };
