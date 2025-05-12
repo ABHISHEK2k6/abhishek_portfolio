@@ -4,33 +4,35 @@ import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 
 import CanvasLoader from "../Loader";
 
-const Robots = ({ isMobile }) => {
-  const computer = useGLTF("./desktop_pc/robot.glb");
+const Robots = ({ isMobile, lightPosition, lightRotation }) => {
+  const computer = useGLTF("./desktop_pc/Robot.glb");
 
   return (
     <mesh>
-      <hemisphereLight intensity={2.15} groundColor='black' />
-      <spotLight
-        position={[-20, 50, 10]}
-        angle={0.12}
-        penumbra={1}
-        intensity={1}
-        castShadow
-        shadow-mapSize={1024}
+      {/* Point light with adjustable position and rotation */}
+      <pointLight
+        color={"purple"}
+        intensity={isMobile ? 500 : 60}
+        position={lightPosition} // Set position from props
+        rotation={lightRotation} // Set rotation from props
       />
-      <pointLight intensity={isMobile ? 1.8 : 10} />
-      <primitive
-        object={computer.scene}
-        scale={isMobile ? 0.8 : .4}
-        position={isMobile ? [0, -0.8, 1.2] : [0, -0.5, -1]}
-        rotation={[-0.01, 0.4, -0.1]}
-      />
+      
+      {/* Group the model to center the rotation */}
+      <group rotation={[0, 1, 0]}>
+        <primitive
+          object={computer.scene}
+          scale={isMobile ? 0.5 : 0.5}
+          position={isMobile ? [0, -1.2, -0.1] : [0, -0.5, -1]}
+        />
+      </group>
     </mesh>
   );
 };
 
 const RobotCanvas = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [lightPosition, setLightPosition] = useState(isMobile ? [-0.2, 0.5, 0] : [-0.2, 1, 1]); // Default light position
+  const [lightRotation, setLightRotation] = useState([Math.PI / 1, Math.PI / 3, 2]); // Default light rotation
 
   useEffect(() => {
     // Add a listener for changes to the screen size
@@ -55,7 +57,7 @@ const RobotCanvas = () => {
 
   return (
     <Canvas
-      frameloop='demand'
+      frameloop="demand"
       shadows
       dpr={[1, 2]}
       camera={{ position: [20, 3, 5], fov: 25 }}
@@ -67,7 +69,12 @@ const RobotCanvas = () => {
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
         />
-        <Robots isMobile={isMobile} />
+        {/* Pass light position and rotation as props */}
+        <Robots
+          isMobile={isMobile}
+          lightPosition={lightPosition}
+          lightRotation={lightRotation}
+        />
       </Suspense>
 
       <Preload all />

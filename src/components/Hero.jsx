@@ -1,14 +1,14 @@
 import { motion } from "framer-motion";
 
 import { styles } from "../styles";
-import { RobotCanvas } from "./canvas";
+import {RobotCanvas} from "./canvas";
 
 const Hero = () => {
   return (
     <section className={`relative w-full h-screen mx-auto`}>
       <div className="w-full h-full relative">
         <div className="absolute w-[50%] h-full right-0 z-[2] max-[420px]:w-full">
-          {/* <RobotCanvas /> */}
+          <RobotCanvas />
         </div>
       </div>
       <div
