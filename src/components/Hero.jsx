@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { blackhole, mainicondark } from "../assets";
 import { styles } from "../styles";
 import { RobotCanvas } from "./canvas";
+import { Typewriter } from "react-simple-typewriter";
 
 const Hero = () => {
   return (
@@ -31,11 +32,23 @@ const Hero = () => {
           <h1 className="text-4xl font-bold text-white">
             Hi, I'm <span className="text-[#9215e6]">Abhishek</span>
           </h1>
-          <p className="mt-3 text-white text-lg">
-            I develop 3D models,
-            <br />
-            Animations and web applications.
-          </p>
+          <div className="text-[1.59rem] sm:text-6xl font-extrabold text-white mt-6">
+
+            <Typewriter
+              words={[
+                "I develop 3D models.",
+                "I create animations.",
+                "I build web applications."
+              ]}
+              loop
+              cursor
+              cursorStyle="|"
+              typeSpeed={70}
+              deleteSpeed={40}
+              delaySpeed={3000}
+            />
+          </div>
+
         </div>
 
         {/* 🎯 3D Model on Mobile */}
@@ -72,11 +85,23 @@ const Hero = () => {
               <h1 className={`${styles.heroHeadText} text-white`}>
                 Hi, I'm <span className="text-[#8a11b7]">Abhishek</span>
               </h1>
-              <p className={`${styles.heroSubText} mt-2 text-white-100`}>
-                I develop 3D models,
-                <br className="sm:block hidden" />
-                Animations and web applications.
+              <p className="mt-4 text-white text-[2.7rem] font-semibold leading-snug">
+
+                <Typewriter
+                  words={[
+                    "I develop 3D models.",
+                    "I create animations.",
+                    "I build web applications."
+                  ]}
+                  loop
+                  cursor
+                  cursorStyle="|"
+                  typeSpeed={70}
+                  deleteSpeed={40}
+                  delaySpeed={3000}
+                />
               </p>
+
 
               <div className="w-full h-[300px] sm:h-[400px]">
                 <RobotCanvas />
