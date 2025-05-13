@@ -18,8 +18,10 @@ const Hero = () => {
         <source src={blackhole} type="video/webm" />
       </video>
 
+      {/* 🔽 Gradient Overlay to Blend Bottom of Video */}
+      <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-[rgba(5,8,22,1)] to-[rgba(5,8,22,0)] z-10 pointer-events-none" />
       {/* 📱 Mobile Layout */}
-      <div className="relative z-10 w-full h-full flex flex-col justify-center items-center px-4 sm:hidden">
+      <div className="relative z-20 w-full h-full flex flex-col justify-center items-center px-4 sm:hidden">
         {/* Background SVG */}
         <img
           src={mainicondark}
@@ -33,12 +35,11 @@ const Hero = () => {
             Hi, I'm <span className="text-[#9215e6]">Abhishek</span>
           </h1>
           <div className="text-[1.59rem] sm:text-6xl font-extrabold text-white mt-6">
-
             <Typewriter
               words={[
+                "I build web applications.",
                 "I develop 3D models.",
-                "I create animations.",
-                "I build web applications."
+                "I create animations."
               ]}
               loop
               cursor
@@ -48,7 +49,6 @@ const Hero = () => {
               delaySpeed={3000}
             />
           </div>
-
         </div>
 
         {/* 🎯 3D Model on Mobile */}
@@ -58,7 +58,7 @@ const Hero = () => {
       </div>
 
       {/* 💻 Desktop Layout */}
-      <div className="relative z-10 w-full h-full hidden sm:block">
+      <div className="relative z-20 w-full h-full hidden sm:block">
         {/* Right Side Icon */}
         <div className="absolute w-[40%] h-full right-0 z-[2] top-8 flex justify-center items-center">
           <motion.img
@@ -86,12 +86,11 @@ const Hero = () => {
                 Hi, I'm <span className="text-[#8a11b7]">Abhishek</span>
               </h1>
               <p className="mt-4 text-white text-[2.7rem] font-semibold leading-snug">
-
                 <Typewriter
                   words={[
+                    "I build web applications.",
                     "I develop 3D models.",
-                    "I create animations.",
-                    "I build web applications."
+                    "I create animations."
                   ]}
                   loop
                   cursor
@@ -101,7 +100,6 @@ const Hero = () => {
                   delaySpeed={3000}
                 />
               </p>
-
 
               <div className="w-full h-[300px] sm:h-[400px]">
                 <RobotCanvas />

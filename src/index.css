@@ -40,6 +40,21 @@
   border-radius: 16px;
 }
 
+/* Add to your global CSS for better gradient border control */
+.gradient-border {
+  position: relative;
+  background: linear-gradient(to bottom, #00cea8, #bf61ff);
+  padding: 2px;
+  border-radius: 16px;
+}
+
+.gradient-border-inner {
+  background: #1a1a2e;
+  border-radius: 14px; /* Slightly smaller than outer radius */
+  width: 100%;
+  height: 100%;
+}
+
 /* Hardware acceleration */
 .tilt-card {
   transform: translateZ(0);

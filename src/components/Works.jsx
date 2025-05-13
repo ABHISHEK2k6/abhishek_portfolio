@@ -4,7 +4,7 @@ import { github } from "../assets";
 import { SectionWrapper } from "../hoc";
 import { projects } from "../constants";
 
-// Optimized tilt component with performance controls
+// Optimized tilt component with gradient border
 const TiltCard = ({ children, className }) => {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const animationRef = useRef();
@@ -37,16 +37,19 @@ const TiltCard = ({ children, className }) => {
   return (
     <div
       ref={cardRef}
-      className={className}
+      className={`${className} relative p-[3px] rounded-2xl`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
         transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale(1.02)`,
         transition: 'transform 0.15s ease-out',
-        willChange: 'transform'
+        willChange: 'transform',
+        background: 'linear-gradient(to bottom, #00cea8, #bf61ff)'
       }}
     >
-      {children}
+      <div className="bg-tertiary rounded-xl h-full w-full">
+        {children}
+      </div>
     </div>
   );
 };
@@ -61,7 +64,6 @@ const ProjectCard = memo(({ index, name, description, tags, image, source_code_l
     img.src = image;
     img.onload = () => setIsLoaded(true);
     
-    // Fallback in case onload doesn't fire
     const timeout = setTimeout(() => setIsLoaded(true), 1000);
     return () => clearTimeout(timeout);
   }, [image]);
@@ -81,10 +83,10 @@ const ProjectCard = memo(({ index, name, description, tags, image, source_code_l
       className="w-full sm:w-[360px] animate-fade-in"
       style={{
         animationDelay: `${index * 50}ms`,
-        opacity: 0 // Start invisible, animation will make it visible
+        opacity: 0
       }}
     >
-      <TiltCard className="bg-tertiary p-5 rounded-2xl h-full border-gradient">
+      <TiltCard className="h-full">
         <div
           className="relative w-full h-[180px] sm:h-[230px] cursor-pointer"
           onClick={() => window.open(source_code_link, "_blank")}
@@ -96,7 +98,7 @@ const ProjectCard = memo(({ index, name, description, tags, image, source_code_l
             decoding="async"
             width={360}
             height={230}
-            className={`w-full h-full rounded-2xl transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${name === "MediaCon News Website" ? "object-contain" : ""} `}
+            className={`w-full h-full rounded-xl transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${name === "MediaCon News Website" ? "object-contain" : "object-cover"}`}
             style={{ 
               contentVisibility: 'auto',
               background: isLoaded ? 'none' : 'linear-gradient(90deg, #1a1a2e 0%, #16213e 100%)'
@@ -116,12 +118,12 @@ const ProjectCard = memo(({ index, name, description, tags, image, source_code_l
           </div>
         </div>
 
-        <div className="mt-5">
+        <div className="mt-5 px-3">
           <h3 className="text-white font-bold text-[20px] sm:text-[24px]">{name}</h3>
           <p className="mt-2 text-secondary text-[12px] sm:text-[14px]">{description}</p>
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-4 flex flex-wrap gap-2 px-3 pb-3">
           {renderedTags}
         </div>
       </TiltCard>
