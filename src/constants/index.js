@@ -232,7 +232,8 @@ const projects = [
       },
     ],
     image: youtube, // Replace with actual image import or path
-    source_code_link: "https://github.com/ABHISHEK2k6/Yoututbe-Clone-UI.git",
+    github_link: "https://github.com/ABHISHEK2k6/Yoututbe-Clone-UI.git",
+    source_code_link: "https://yoututbe-clone-ui.vercel.app",
   },
   {
     name: "MuLearn Website Update",
@@ -253,7 +254,8 @@ const projects = [
       },
     ],
     image: mulearn_ucek, // Replace with actual image import or path
-    source_code_link: "https://github.com/ABHISHEK2k6/Mulearn-ucek.git",
+    github_link: "https://github.com/ABHISHEK2k6/Mulearn-ucek.git",
+    source_code_link: "https://mulearn-ucek.netlify.app",
   },
   {
     name: "MediaCon News Website",
@@ -274,7 +276,8 @@ const projects = [
       },
     ],
     image: mediacon_news, // Replace with actual image import or path
-    source_code_link: "https://github.com/ABHISHEK2k6/mediacon-news-next.git",
+    github_link: "https://github.com/ABHISHEK2k6/mediacon-news-next.git",
+    source_code_link: "https://mediacon-news-next-omega.vercel.app",
   },
   {
     name: "College Website Enhancement",
@@ -299,7 +302,8 @@ const projects = [
       },
     ],
     image: college_site, // Replace with actual image import or path
-    source_code_link: "https://github.com/ABHISHEK2k6/ucek.git",
+    github_link: "https://github.com/ABHISHEK2k6/ucek.git",
+    source_code_link: "https://uck.ac.in",
   },
   {
     name: "3D Portfolio Website",
@@ -328,7 +332,8 @@ const projects = [
       },
     ],
     image: portfolio, // Replace with actual image import or path
-    source_code_link: "https://github.com/ABHISHEK2k6/abhishek_portfolio.git",
+    github_link: "https://github.com/ABHISHEK2k6/abhishek_portfolio.git",
+    source_code_link: "https://abhishekpdev.netlify.app",
   },
 ];
 

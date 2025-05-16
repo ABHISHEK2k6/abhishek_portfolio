@@ -12,12 +12,12 @@ const TiltCard = ({ children, className }) => {
 
   const handleMouseMove = (e) => {
     cancelAnimationFrame(animationRef.current);
-    
+
     animationRef.current = requestAnimationFrame(() => {
       const rect = cardRef.current.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
-      
+
       setTilt({
         x: y * 8, // Vertical tilt
         y: -x * 8 // Horizontal tilt
@@ -54,7 +54,7 @@ const TiltCard = ({ children, className }) => {
   );
 };
 
-const ProjectCard = memo(({ index, name, description, tags, image, source_code_link }) => {
+const ProjectCard = memo(({ index, name, description, tags, image, source_code_link, github_link }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const cardRef = useRef();
 
@@ -63,7 +63,7 @@ const ProjectCard = memo(({ index, name, description, tags, image, source_code_l
     const img = new Image();
     img.src = image;
     img.onload = () => setIsLoaded(true);
-    
+
     const timeout = setTimeout(() => setIsLoaded(true), 1000);
     return () => clearTimeout(timeout);
   }, [image]);
@@ -78,7 +78,7 @@ const ProjectCard = memo(({ index, name, description, tags, image, source_code_l
   ), [tags, name]);
 
   return (
-    <div 
+    <div
       ref={cardRef}
       className="w-full sm:w-[360px] animate-fade-in"
       style={{
@@ -99,17 +99,19 @@ const ProjectCard = memo(({ index, name, description, tags, image, source_code_l
             width={360}
             height={230}
             className={`w-full h-full rounded-xl transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${name === "MediaCon News Website" ? "object-contain" : "object-cover"}`}
-            style={{ 
+            style={{
               contentVisibility: 'auto',
               background: isLoaded ? 'none' : 'linear-gradient(90deg, #1a1a2e 0%, #16213e 100%)'
             }}
           />
           <div className="absolute inset-0 flex justify-end m-3">
-            <div className="black-gradient w-10 h-10 rounded-full flex justify-center items-center">
-              <img 
-                src={github} 
-                alt="source code" 
-                className="w-1/2 h-1/2 object-contain" 
+            <div className="black-gradient w-10 h-10 rounded-full flex justify-center items-center"
+              onClick={() => window.open(github_link, "_blank")}
+            >
+              <img
+                src={github}
+                alt="source code"
+                className="w-1/2 h-1/2 object-contain"
                 loading="lazy"
                 width={20}
                 height={20}
@@ -141,12 +143,12 @@ const Works = () => {
         <h2 className={`${styles.sectionHeadText} animate-fade-in`} style={{ animationDelay: '50ms' }}>
           Projects.
         </h2>
-        <p 
+        <p
           className="mt-3 text-secondary text-[14px] sm:text-[16px] max-w-3xl leading-[24px] mx-auto animate-fade-in"
           style={{ animationDelay: '100ms' }}
         >
-          Following projects showcase my skills and experience through real-world examples. 
-          Each project includes links to the code or demo and highlights my ability to 
+          Following projects showcase my skills and experience through real-world examples.
+          Each project includes links to the code or demo and highlights my ability to
           solve complex problems and work with different technologies.
         </p>
       </div>

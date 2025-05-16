@@ -6,7 +6,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 
 const Footer = () => {
   return (
-    <footer className="w-full text-white py-4 px-4 flex flex-col items-center relative z-10 bg-[rgba(0,0,0,0)] backdrop-blur-sm">
+    <footer className="w-full text-white py-4 px-4 flex flex-col items-center relative z-10 bg-[rgba(0,0,0,0.1)] backdrop-blur-sm">
       <h2 className="text-2xl font-bold text-[#9215e6] mb-3">{Bio.name}</h2>
 
       <nav className="flex flex-wrap gap-6 justify-center text-sm md:text-base text-gray-300 mb-3">

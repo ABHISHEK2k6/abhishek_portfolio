@@ -43,7 +43,7 @@ const WorkGallery = () => {
     workImages.map((image) => (
       <div
         key={image.id}
-        className="aspect-square overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-out hover:scale-105 hover:brightness-110"
+        className="aspect-square overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-out hover:scale-110 hover:brightness-110"
       >
         <img
           src={image.src}
