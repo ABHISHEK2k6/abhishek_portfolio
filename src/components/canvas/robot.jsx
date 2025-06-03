@@ -42,7 +42,7 @@ const Robots = ({ isMobile }) => {
 
       {/* Robot model centered */}
       <Center>
-        <primitive object={scene} scale={isMobile ? 0.6 : 0.6} />
+        <primitive object={scene} scale={isMobile ? 0.6 : 0.4} />
       </Center>
     </mesh>
   );

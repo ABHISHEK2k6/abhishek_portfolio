@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo, useCallback } from "react";
-import { ComputersCanvas } from "../components/canvas";
+import { RobotCanvas } from "./canvas";
 import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
 
@@ -70,7 +70,7 @@ const WorkGallery = () => {
         {/* Canvas Area */}
         <div className="w-full lg:w-2/5 h-[300px] lg:h-[600px]">
           <div className="w-full h-full rounded-lg overflow-hidden">
-            {canvasVisible && <ComputersCanvas />}
+            {canvasVisible && <RobotCanvas />}
           </div>
         </div>
       </div>

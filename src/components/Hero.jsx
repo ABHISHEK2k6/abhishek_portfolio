@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { blackhole, mainicondark } from "../assets";
 import { styles } from "../styles";
-import { RobotCanvas } from "./canvas";
+import { ComputersCanvas } from "../components/canvas";
 import { Typewriter } from "react-simple-typewriter";
 
 const Hero = () => {
@@ -53,7 +53,7 @@ const Hero = () => {
 
         {/* 🎯 3D Model on Mobile */}
         <div className="relative z-10 w-full h-[300px] mt-6">
-          <RobotCanvas />
+          <ComputersCanvas />
         </div>
       </div>
 
@@ -102,7 +102,7 @@ const Hero = () => {
               </p>
 
               <div className="w-full h-[300px] sm:h-[400px]">
-                <RobotCanvas />
+                <ComputersCanvas />
               </div>
             </div>
           </div>
